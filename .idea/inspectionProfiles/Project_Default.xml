@@ -1,0 +1,26 @@
+<component name="InspectionProjectProfileManager">
+  <profile version="1.0">
+    <option name="myName" value="Project Default" />
+    <inspection_tool class="PyPackageRequirementsInspection" enabled="true" level="WARNING" enabled_by_default="true">
+      <option name="ignoredPackages">
+        <value>
+          <list size="13">
+            <item index="0" class="java.lang.String" itemvalue="jupyter" />
+            <item index="1" class="java.lang.String" itemvalue="folium" />
+            <item index="2" class="java.lang.String" itemvalue="mysql-connector" />
+            <item index="3" class="java.lang.String" itemvalue="plotly" />
+            <item index="4" class="java.lang.String" itemvalue="torch" />
+            <item index="5" class="java.lang.String" itemvalue="konlpy" />
+            <item index="6" class="java.lang.String" itemvalue="JPype1" />
+            <item index="7" class="java.lang.String" itemvalue="icecream" />
+            <item index="8" class="java.lang.String" itemvalue="seaborn" />
+            <item index="9" class="java.lang.String" itemvalue="jsonify" />
+            <item index="10" class="java.lang.String" itemvalue="certifi" />
+            <item index="11" class="java.lang.String" itemvalue="pytorch" />
+            <item index="12" class="java.lang.String" itemvalue="googlemaps" />
+          </list>
+        </value>
+      </option>
+    </inspection_tool>
+  </profile>
+</component>
