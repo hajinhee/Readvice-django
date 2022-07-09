@@ -25,6 +25,7 @@ urlpatterns = [
     path('', hello_api),
     path('users/', include('users.urls')),
     path('comments/', include('comments.urls')),
+    path('api/mypage/', include('comments.urls')),
 
 
     # path('admin/', admin.site.urls),

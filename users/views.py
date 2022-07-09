@@ -8,6 +8,7 @@ from .models import  User
 from .serializers import UserSerializer, LoginSerializer
 from rest_framework.response import Response
 
+
 @api_view(["GET", "POST", "PUT", "DELETE"])
 @parser_classes([JSONParser])
 def users(request):
@@ -87,9 +88,9 @@ def login(request):
     # except User.DoesNotExist:
     #     return Response(status=status.HTTP_500_INTERNAL_SERVER_ERROR)
 
-
-# @api_view(["POST"])
-# def adminLogout(request):
-#     print(request.user)
-#     logout(request)
-#     return JsonResponse({"message": "LoggedOut"})
+@api_view(["POST"])
+@parser_classes([JSONParser])
+def logout(request):
+    print(request.user)
+    logout(request)
+    return Response({"message": "LoggedOut"})
