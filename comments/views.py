@@ -4,6 +4,7 @@ from rest_framework.parsers import JSONParser
 from comments.models import Comment
 from comments.serializers import CommentSerializer
 from rest_framework.response import Response
+from users.models import User
 
 
 @api_view(["GET", "POST", "PUT", "DELETE"])
@@ -37,3 +38,13 @@ def comments(request):
             return Response(status=status.HTTP_204_NO_CONTENT)
     except Comment.DoesNotExist:
         return Response(status=status.HTTP_404_NOT_FOUND)
+
+
+@api_view(["GET"])
+@parser_classes([JSONParser])
+def mypage():
+    for i in User.objects.raw("SELECT * FROM users"):
+        print(i)
+
+
+
