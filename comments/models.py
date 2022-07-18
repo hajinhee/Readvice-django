@@ -10,9 +10,8 @@ class Comment(models.Model):
     comment = models.TextField()
     reg_date = models.DateField()
     auto_recode = models.TextField()
-
-    user = models.ForeignKey(User, on_delete=models.CASCADE)
-    book = models.ForeignKey(Book, on_delete=models.CASCADE)
+    email = models.ForeignKey(User, on_delete=models.CASCADE)
+    isbn = models.ForeignKey(Book, on_delete=models.CASCADE)
 
     class Meta:
         db_table = "comments"

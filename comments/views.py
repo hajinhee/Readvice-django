@@ -10,7 +10,7 @@ from users.serializers import UserSerializer
 
 @api_view(["GET", "POST", "PUT", "DELETE"])
 @parser_classes([JSONParser])
-def comments(request):
+def write(request):
     print('1 comments 로 들어옴')
     try:
         comments = Comment.objects.all()
@@ -46,9 +46,6 @@ def comments(request):
 @parser_classes([JSONParser])
 def mypage(request):
     queryset = Comment.objects.all()
-    serializer = UserSerializer(queryset, many=True)
+    serializer = CommentSerializer(queryset, many=True)
     return Response(serializer.data)
-    # queryset = User.objects.raw(
-    #     'SELECT * FROM users LEFT JOIN comments ON users.email = comments.user_id UNION SELECT * FROM users RIGHT JOIN comments ON users.email = comments.user_id')
-    # serializer = UserSerializer(queryset, many=True)
-    # return Response(serializer.data)
+

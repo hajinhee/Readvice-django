@@ -9,7 +9,7 @@ from books.serializers import BookSerializer
 
 @api_view(["GET", "POST", "DELETE"])
 @parser_classes([JSONParser])
-def books(request):
+def info(request):
     print("1.books로 들어옴")
     try:
         if request.method == 'GET':

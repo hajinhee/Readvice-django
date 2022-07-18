@@ -25,6 +25,7 @@ urlpatterns = [
     path('', hello_api),
     path('users/', include('users.urls')),
     path('comments/', include('comments.urls')),
+    path('books/', include('books.urls')),
     path('api/', include('comments.urls')),
 
 
