@@ -5,6 +5,7 @@ from comments.models import Comment
 from comments.serializers import CommentSerializer
 from rest_framework.response import Response
 from users.models import User
+from users.serializers import UserSerializer
 
 
 @api_view(["GET", "POST", "PUT", "DELETE"])
@@ -24,8 +25,9 @@ def comments(request):
                 serializer.save()
                 print('3. 들어온 내부값: ', serializer)
                 return Response(serializer.data, status=status.HTTP_201_CREATED)
-            print(serializer.errors)
+            print('error: ', serializer.errors)
             return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
         elif request.method == 'PUT':
             print('2 PUT 으로 들어옴')
             serializer = CommentSerializer(comments, data=request.data)
@@ -42,9 +44,11 @@ def comments(request):
 
 @api_view(["GET"])
 @parser_classes([JSONParser])
-def mypage():
-    for i in User.objects.raw("SELECT * FROM users"):
-        print(i)
-
-
-
+def mypage(request):
+    queryset = Comment.objects.all()
+    serializer = UserSerializer(queryset, many=True)
+    return Response(serializer.data)
+    # queryset = User.objects.raw(
+    #     'SELECT * FROM users LEFT JOIN comments ON users.email = comments.user_id UNION SELECT * FROM users RIGHT JOIN comments ON users.email = comments.user_id')
+    # serializer = UserSerializer(queryset, many=True)
+    # return Response(serializer.data)

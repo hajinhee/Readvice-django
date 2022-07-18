@@ -9,6 +9,7 @@ class Book(models.Model):
     library_name = models.TextField()
     price = models.TextField()
     category = models.TextField()
+    book_img = models.TextField(null=True)
 
     class Meta:
         db_table = "books"
