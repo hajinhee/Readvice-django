@@ -9,9 +9,9 @@ services:
       - ~/docker/mariadb/var/lib/mysql:/var/lib/mysql
       - ~/docker/mariadb/var/log/maria:/var/log/maria
     environment:
-      - MYSQL_DATABASE=readvice
-      - MYSQL_ROOT_PASSWORD=readvice
-      - MYSQL_ROOT_HOST=%readvice.civcpolfj7wz.ap-northeast-2.rds.amazonaws.com
+      - MYSQL_DATABASE=root
+      - MYSQL_ROOT_PASSWORD=root
+      - MYSQL_ROOT_HOST=%
     command: [ '--character-set-server=utf8mb4', '--collation-server=utf8mb4_unicode_ci' ]
     ports:
       - 3306:3306

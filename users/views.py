@@ -2,6 +2,7 @@ from django.contrib.auth import login, authenticate
 from django.http import JsonResponse, HttpResponse
 from rest_framework import status
 from rest_framework.decorators import api_view, parser_classes
+from rest_framework.generics import get_object_or_404
 from rest_framework.parsers import JSONParser
 from rest_framework_simplejwt.tokens import RefreshToken
 from .models import  User
@@ -30,17 +31,21 @@ def users(request):
                 return Response(serializer.data, status=status.HTTP_201_CREATED)
             print('error: ', serializer.errors)
             return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
         elif request.method == 'PUT':
             print('2 PUT 으로 들어옴')
-            users = User.objects.all()
-            serializer = UserSerializer(users, data=request.data)
+            email = request.data.get('email', None)
+            user = get_object_or_404(User, email=email)
+            serializer = UserSerializer(user, data=request.data)
             if serializer.is_valid():
                 serializer.save()
                 return Response(serializer.data)
             return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
         elif request.method == 'DELETE':
-            users = User.objects.all()
-            users.delete()
+            email = request.data.get('email', None)
+            user = get_object_or_404(User, email=email)
+            user.delete()
             return Response(status=status.HTTP_204_NO_CONTENT)
     except User.DoesNotExist:
         return Response(status=status.HTTP_500_INTERNAL_SERVER_ERROR)
