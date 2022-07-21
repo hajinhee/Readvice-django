@@ -1,18 +1,17 @@
-from django.contrib.auth import login, authenticate
-from django.http import JsonResponse, HttpResponse
+
 from rest_framework import status
-from rest_framework.decorators import api_view, parser_classes
 from rest_framework.generics import get_object_or_404
-from rest_framework.parsers import JSONParser
-from rest_framework_simplejwt.tokens import RefreshToken
-from .models import  User
+
+from .models import User
 from .serializers import UserSerializer, LoginSerializer
 from rest_framework.response import Response
-
+from rest_framework.decorators import api_view, parser_classes
+from rest_framework.parsers import JSONParser
+from rest_framework.authtoken.models import Token
 
 @api_view(["GET", "POST", "PUT", "DELETE"])
 @parser_classes([JSONParser])
-def users(request):
+def join(request):
     print('1 users 로 들어옴')
     try:
         if request.method == 'GET':
@@ -31,7 +30,6 @@ def users(request):
                 return Response(serializer.data, status=status.HTTP_201_CREATED)
             print('error: ', serializer.errors)
             return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
-
         elif request.method == 'PUT':
             print('2 PUT 으로 들어옴')
             email = request.data.get('email', None)
@@ -41,7 +39,6 @@ def users(request):
                 serializer.save()
                 return Response(serializer.data)
             return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
-
         elif request.method == 'DELETE':
             email = request.data.get('email', None)
             user = get_object_or_404(User, email=email)
@@ -51,25 +48,42 @@ def users(request):
         return Response(status=status.HTTP_500_INTERNAL_SERVER_ERROR)
 
 
-@api_view(["POST"])
+@api_view(['POST'])
 @parser_classes([JSONParser])
 def login(request):
-    print(f'1 login 로 들어옴')
-    email = request.data.get('email')  # 클라이언트 요청 이메일
-    # print(f'2 email: {email}')
-    password = request.data.get('password')
-    # print(f'3 password: {password}')
+        email = request.data.get('email')  # 클라이언트 요청 이메일
+        password = request.data.get('password')  # 클라이언트 요청 패스워드
+        user = get_object_or_404(User, email=email)
+        try:
+            if email == user.email:
+                if password == User.objects.get(email=email).password:
+                    serializer = LoginSerializer(user)
+                    token = Token.objects.create(user=user)
+                    # token = Token.objects.create(user=settings.AUTH_USER_MODEL)
+                    print(' ############################# ')
+                    print(f' 출력된 토큰값: {token}')
+                    print(' ############################# ')
+                    return Response(data=serializer.data)
+                else:
+                    print('#############3')
+                    return Response({"Message": "비밀번호 오류"})
+        except User.DoesNotExist:
+            print('#############4')
+            return Response({"Message": "존재하지 않는 아이디"})
 
-    # db_email = User.objects.get(email=email).email
-    # print(f'5 db_email: {db_email}')
-    try:
-        if email == User.objects.get(email=email).email:
-            if password == User.objects.get(email=email).password:
-                return Response({"Message": "로그인 성공"})
-            else:
-                return Response({"Message": "비밀번호 오류"})
-    except User.DoesNotExist:
-        return Response({"Message": "존재하지 않는 아이디"})
+    #   강사님 코드
+    #     loginuser = request.data
+    #     dbUser = User.objects.get(email=loginuser['email'])
+    #     print(dbUser)
+    #     if loginuser['password'] == dbUser.password:
+    #         userSerializer = UserSerializer(dbUser, many=False)
+    #         token = Token.objects.create(user=userSerializer)
+    #         print(' ############################# ')
+    #         print(f' 출력된 토큰값: {token}')
+    #         print(' ############################# ')
+    #         return Response(data=userSerializer.data)
+    # except:
+    #     return Response({'login':'fail 해당 이메일이 없습니다'})
 
     #     authenticated_user = authenticate(request, username=username, password=password)
     #     print(authenticated_user)
@@ -93,9 +107,13 @@ def login(request):
     # except User.DoesNotExist:
     #     return Response(status=status.HTTP_500_INTERNAL_SERVER_ERROR)
 
+
 @api_view(["POST"])
 @parser_classes([JSONParser])
 def logout(request):
-    print(request.user)
-    logout(request)
-    return Response({"message": "LoggedOut"})
+    email = request.data.get('email')  # 클라이언트 요청 이메일
+    user = get_object_or_404(User, email=email)
+    token = Token.objects.get(user=user)
+    token.delete()
+    return Response({"message": "Logout Successfully"}, status=status.HTTP_200_OK)
+

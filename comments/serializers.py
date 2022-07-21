@@ -10,8 +10,8 @@ class CommentSerializer(serializers.ModelSerializer):
         model = Comment
         fields = '__all__'
 
-    def to_representation(self, instance):
-        self.fields['email'] = UserSerializer(read_only=True)
-        self.fields['isbn'] = BookSerializer(read_only=True)
-        return super(CommentSerializer, self).to_representation(instance)
-
+    #
+    # def to_representation(self, instance):
+    #     self.fields['email'] = UserSerializer(read_only=True)
+    #     self.fields['isbn'] = BookSerializer(read_only=True)
+    #     return super(CommentSerializer, self).to_representation(instance)
