@@ -6,10 +6,9 @@ from rest_framework.parsers import JSONParser
 from books.models import Book
 from books.serializers import BookSerializer
 from comments.models import Comment
-from comments.serializers import CommentSerializer
+from comments.serializers import CommentSerializer, MypageSerializer
 from rest_framework.response import Response
 from users.models import User
-from users.serializers import UserSerializer
 
 
 @api_view(["GET", "POST", "PUT", "DELETE"])
@@ -75,3 +74,10 @@ def mypage(request):
     except Comment.DoesNotExist:
         return Response(status=status.HTTP_404_NOT_FOUND)
 
+@api_view(["GET"])
+@parser_classes([JSONParser])
+def all_info(request):
+    queryset = User.objects.raw('SELECT * FROM users LEFT JOIN comments ON users.email = comments.email_id '
+                                'RIGHT JOIN books ON comments.isbn_id=books.isbn')
+    serializer = MypageSerializer(queryset, many=True)
+    return Response(serializer.data)

@@ -4,20 +4,38 @@
     <inspection_tool class="PyPackageRequirementsInspection" enabled="true" level="WARNING" enabled_by_default="true">
       <option name="ignoredPackages">
         <value>
-          <list size="13">
-            <item index="0" class="java.lang.String" itemvalue="jupyter" />
+          <list size="31">
+            <item index="0" class="java.lang.String" itemvalue="mysqlclient" />
             <item index="1" class="java.lang.String" itemvalue="folium" />
-            <item index="2" class="java.lang.String" itemvalue="mysql-connector" />
-            <item index="3" class="java.lang.String" itemvalue="plotly" />
-            <item index="4" class="java.lang.String" itemvalue="torch" />
-            <item index="5" class="java.lang.String" itemvalue="konlpy" />
-            <item index="6" class="java.lang.String" itemvalue="JPype1" />
-            <item index="7" class="java.lang.String" itemvalue="icecream" />
-            <item index="8" class="java.lang.String" itemvalue="seaborn" />
-            <item index="9" class="java.lang.String" itemvalue="jsonify" />
-            <item index="10" class="java.lang.String" itemvalue="certifi" />
-            <item index="11" class="java.lang.String" itemvalue="pytorch" />
-            <item index="12" class="java.lang.String" itemvalue="googlemaps" />
+            <item index="2" class="java.lang.String" itemvalue="html5lib" />
+            <item index="3" class="java.lang.String" itemvalue="mysql-connector" />
+            <item index="4" class="java.lang.String" itemvalue="nltk" />
+            <item index="5" class="java.lang.String" itemvalue="python-dateutil" />
+            <item index="6" class="java.lang.String" itemvalue="SQLAlchemy" />
+            <item index="7" class="java.lang.String" itemvalue="pep8" />
+            <item index="8" class="java.lang.String" itemvalue="MarkupSafe" />
+            <item index="9" class="java.lang.String" itemvalue="requests" />
+            <item index="10" class="java.lang.String" itemvalue="Jinja2" />
+            <item index="11" class="java.lang.String" itemvalue="seaborn" />
+            <item index="12" class="java.lang.String" itemvalue="selenium" />
+            <item index="13" class="java.lang.String" itemvalue="mccabe" />
+            <item index="14" class="java.lang.String" itemvalue="certifi" />
+            <item index="15" class="java.lang.String" itemvalue="googlemaps" />
+            <item index="16" class="java.lang.String" itemvalue="urllib3" />
+            <item index="17" class="java.lang.String" itemvalue="itsdangerous" />
+            <item index="18" class="java.lang.String" itemvalue="djangorestframework" />
+            <item index="19" class="java.lang.String" itemvalue="Flask" />
+            <item index="20" class="java.lang.String" itemvalue="six" />
+            <item index="21" class="java.lang.String" itemvalue="Werkzeug" />
+            <item index="22" class="java.lang.String" itemvalue="aniso8601" />
+            <item index="23" class="java.lang.String" itemvalue="plotly" />
+            <item index="24" class="java.lang.String" itemvalue="click" />
+            <item index="25" class="java.lang.String" itemvalue="pandas-datareader" />
+            <item index="26" class="java.lang.String" itemvalue="icecream" />
+            <item index="27" class="java.lang.String" itemvalue="jsonify" />
+            <item index="28" class="java.lang.String" itemvalue="pytz" />
+            <item index="29" class="java.lang.String" itemvalue="Flask-RESTful" />
+            <item index="30" class="java.lang.String" itemvalue="idna" />
           </list>
         </value>
       </option>

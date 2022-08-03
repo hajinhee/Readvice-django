@@ -23,11 +23,11 @@ from django.urls import path, include
 from admin.views import hello_api
 urlpatterns = [
     path('', hello_api),
+    path('/', include('chatbot.urls')),
     path('users/', include('users.urls')),
     path('comments/', include('comments.urls')),
     path('books/', include('books.urls')),
-    path('api/', include('comments.urls')),
-
-
-    # path('admin/', admin.site.urls),
+    path('mypage/', include('comments.urls')),
+    path('search/', include('ocr.urls')),
+    path('report/', include('kogpt2.urls')),
 ]

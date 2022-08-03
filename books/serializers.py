@@ -7,8 +7,3 @@ class BookSerializer(serializers.ModelSerializer):
         model = Book
         fields = '__all__'
 
-
-class UploadSerializer(serializers.ModelSerializer):
-    class Meta:
-        fields = ['book_img', 'book_title']
-

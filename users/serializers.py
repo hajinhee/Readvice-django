@@ -1,10 +1,8 @@
 from django.contrib.auth import authenticate
 from rest_framework import serializers
 from rest_framework.exceptions import ValidationError
-
+from rest_framework.authtoken.models import Token
 from .models import User
-from rest_framework_simplejwt.tokens import RefreshToken
-
 
 class UserSerializer(serializers.ModelSerializer):
     class Meta:
@@ -34,7 +32,7 @@ class UserSerializer(serializers.ModelSerializer):
 class LoginSerializer(serializers.ModelSerializer):
     class Meta:
         model = User
-        fields = ('email', 'password', 'username')
+        fields = ['username']
 
     # def validate(self, data):
     #     print('login_validate 진입')
@@ -57,6 +55,10 @@ class LoginSerializer(serializers.ModelSerializer):
     #     #     raise ValidationError('해당 아이디는 존재하지 않습니다.')
     #     # return data
 
+class TokenSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Token
+        fields = ['key']
 
 
 

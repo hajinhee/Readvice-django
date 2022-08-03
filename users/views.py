@@ -1,9 +1,8 @@
-
 from rest_framework import status
 from rest_framework.generics import get_object_or_404
 
 from .models import User
-from .serializers import UserSerializer, LoginSerializer
+from .serializers import UserSerializer, LoginSerializer, TokenSerializer
 from rest_framework.response import Response
 from rest_framework.decorators import api_view, parser_classes
 from rest_framework.parsers import JSONParser
@@ -57,13 +56,18 @@ def login(request):
         try:
             if email == user.email:
                 if password == User.objects.get(email=email).password:
-                    serializer = LoginSerializer(user)
-                    token = Token.objects.create(user=user)
+                    Token.objects.create(user=user)
+                    token = Token.objects.get(user=user)
+                    # data = User.objects.get(email=email).username
+                    loginSerializer = LoginSerializer(user)
+                    # serializer = TokenSerializer(token)
+                    # serializer = TokenSerializer(token=token)
                     # token = Token.objects.create(user=settings.AUTH_USER_MODEL)
                     print(' ############################# ')
                     print(f' 출력된 토큰값: {token}')
                     print(' ############################# ')
-                    return Response(data=serializer.data)
+                    # print(f'{}')
+                    return Response(loginSerializer.data)
                 else:
                     print('#############3')
                     return Response({"Message": "비밀번호 오류"})
@@ -84,6 +88,7 @@ def login(request):
     #         return Response(data=userSerializer.data)
     # except:
     #     return Response({'login':'fail 해당 이메일이 없습니다'})
+
 
     #     authenticated_user = authenticate(request, username=username, password=password)
     #     print(authenticated_user)
@@ -113,7 +118,6 @@ def login(request):
 def logout(request):
     email = request.data.get('email')  # 클라이언트 요청 이메일
     user = get_object_or_404(User, email=email)
-    token = Token.objects.get(user=user)
-    token.delete()
+    accesstoken = Token.objects.get(user=user)
+    accesstoken.delete()
     return Response({"message": "Logout Successfully"}, status=status.HTTP_200_OK)
-

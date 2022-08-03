@@ -10,8 +10,21 @@ class CommentSerializer(serializers.ModelSerializer):
         model = Comment
         fields = '__all__'
 
-    #
-    # def to_representation(self, instance):
-    #     self.fields['email'] = UserSerializer(read_only=True)
-    #     self.fields['isbn'] = BookSerializer(read_only=True)
-    #     return super(CommentSerializer, self).to_representation(instance)
+class MypageSerializer(serializers.Serializer):
+    comment_id = serializers.CharField()
+    comment = serializers.CharField()
+    auto_recode = serializers.CharField()
+    reg_date = serializers.CharField()
+    email = serializers.CharField()
+    password = serializers.CharField()
+    username = serializers.CharField()
+    birth = serializers.CharField()
+    gender = serializers.CharField()
+    isbn = serializers.CharField()
+    author = serializers.CharField()
+    book_title = serializers.CharField()
+    book_info = serializers.CharField()
+    library_name = serializers.CharField()
+    price = serializers.CharField()
+    category = serializers.CharField()
+    book_img = serializers.CharField()
