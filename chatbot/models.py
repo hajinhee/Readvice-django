@@ -76,10 +76,11 @@ class Chatbot():
                                                                  unk_token=self.UNK, pad_token=self.PAD,
                                                                  mask_token=self.MASK)
 
+
     # 모델 불러오기
     def execute_model(self):
         device = torch.device('cpu')
-        PATH = 'C:/MyProject/kogpt/kogpt/save/chatbot_v80.pt'
+        PATH = 'C:/Users/jinhee/project_readvice/readvice/chatbot/save/chatbot_v80.pt'
         model = torch.load(PATH, map_location=device)
 
         model.eval()
@@ -91,6 +92,12 @@ class Chatbot():
                     print("chatbot > 또 만나요^^")
                     break
                 elif q == "책추천해줘":
+                    Emotion.emotion(self)
+                    continue
+                elif q == "책 추천해줘":
+                    Emotion.emotion(self)
+                    continue
+                elif q == "책 추천":
                     Emotion.emotion(self)
                     continue
                 a = ""
@@ -128,8 +135,8 @@ class Emotion:
         with torch.no_grad():
             end = 1
             while end == 1:
-                sentence = input("지금 하고싶은 말을 해줘" + '\n')
-                model = torch.load('C:/MyProject/chatbot/save/chatbot_v50.pth')
+                sentence = input("오늘 기분은 어떠세요?" + '\n')
+                model = torch.load('C:/Users/jinhee/project_readvice/readvice/chatbot/save/chatbot_v50.pth')
                 data = [sentence, '0']
                 dataset_another = [data]
 
@@ -168,11 +175,11 @@ class Emotion:
                             test_eval.append(" ")
 
                     if test_eval[0] == "마음을 가라앉히고 싶을 때는  ":
-                        print(">> " + test_eval[0] + random.choice(angry_books) + "   이 책을 읽어보세요")
+                        print(">> " + test_eval[0] + random.choice(angry_books) + "  라는 책을 읽어보는 건 어떠세요? ")
                     elif test_eval[0] == "마음의 위로가 필요할 때는  ":
-                        print(">> " + test_eval[0] + random.choice(sad_books) + "   이 책을 읽어보세요")
+                        print(">> " + test_eval[0] + random.choice(sad_books) + "  라는 책을 읽어보는 건 어떠세요?")
                     elif test_eval[0] == " ":
-                        print(">> " + test_eval[0] + random.choice(happy_books) + "   이 책을 읽어보세요")
+                        print(">> " + test_eval[0] + random.choice(happy_books) + "  라는 책을 읽어보는 건 어떠세요?")
                 break
 
 

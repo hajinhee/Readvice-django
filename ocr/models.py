@@ -21,9 +21,6 @@ class Solution:
         self.langs = ['ko', 'en']
         self.upload_image = img_path
 
-    def solution(self):
-        return self.read_text()
-
     def plt_imshow(self, title, img):
         # plt.figure(figsize=self.figsize)
 
