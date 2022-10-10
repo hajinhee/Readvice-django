@@ -6,17 +6,6 @@ from django.utils import timezone
 
 
 class User(AbstractBaseUser, PermissionsMixin):
-    # These fields tie to the roles!
-    ADMIN = 1
-    MANAGER = 2
-    EMPLOYEE = 3
-
-    ROLE_CHOICES = (
-        (ADMIN, 'Admin'),
-        (MANAGER, 'Manager'),
-        (EMPLOYEE, 'Employee')
-    )
-
     use_in_migrations = True
     email = models.CharField(primary_key=True, max_length=30)
     password = models.CharField(max_length=300)
